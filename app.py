@@ -20,12 +20,12 @@ def chat_complete_get():
 @post('/chat_complete')
 def chat_complete():
     try:
-        access_token = request.get_header('access_token')
+        access_token = request.get_header('access-token')
         if access_token != access_key:
             response.status = 403
             return json.dumps({'text': 'Доступ запрещен, токен не верный', 'status': 'error'}, ensure_ascii=False)
 
-        api_token = request.get_header('openai_token')
+        api_token = request.get_header('openai-token')
 
         request_data = request.json
         prompt = request_data['prompt']
@@ -33,9 +33,9 @@ def chat_complete():
         params = params if params else dict()
 
         openai_client = get_model(api_token)
-        print('api_token', api_token)
-        print('prompt', prompt)
-        print('params', params)
+        # print('api_token', api_token)
+        # print('prompt', prompt)
+        # print('params', params)
         status, text = chat_response(prompt, openai_client, **params)
 
         if status:
