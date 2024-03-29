@@ -1,11 +1,34 @@
+## Установка прокси сервиса
+
+```commandline
+
+git clone https://github.com/mlnavigator/chat_gpt_proxy.git
+
+cd 'folder_with_project'
+
+/bin/bash ./rebuild.sh
+```
+можете в скрипте rebuild.sh поменять токен доступа
+
+Если хотите чтобы трафик был шифрованный, то установите nginx и в нем настройте самоподписанные сертификаты
+
+По умолчанию сервис будет доступен по адресу Ваш_IP_адрес_сервера:9081
+
+
+## Как работает сервис
+
 Сервис работает в виде API - отправьте POST запрос на end_point /chat_complete
 
 формат запроса json вида {'prompt': 'Привет, какая ты версия модели?'}
 
+Далее пример кода на python3 для работы с сервисом
+
 ```
+
 import requests
 
 data = {'prompt': 'Привет, какая ты версия модели?'}
+
 ```
 
 
@@ -40,10 +63,13 @@ data = {'prompt': 'Привет, Медвед! Расскажи что ты вч
 Токен Open_ai нигде не сохраняется и используется только в рамках одного запроса
 
 ```
+
 headers = {'access_token': '123456',
            'openai_token': 'your OpenAi api key'}
+           
+#### url='http://localhost:9081/chat_complete' - замените на ваш актуальный адрес сервера
 
-r = requests.post(url='http://localhost:8080/chat_complete', json=data, headers=headers)
+r = requests.post(url='http://localhost:9081/chat_complete', json=data, headers=headers)
 
 print(r.status_code)
 
@@ -54,6 +80,3 @@ print(r.json())
 >>> {'text': 'Привет! Я являюсь версией последней модели, и постоянно обновляюсь, чтобы быть самой современной и эффективной. Как я могу помочь тебе сегодня?', 'status': 'ok'}
 
 ```
-
-Если хотите чтобы трафик был шифрованный, то установите nginx и в нем настройте самоподписанные сертификаты
-

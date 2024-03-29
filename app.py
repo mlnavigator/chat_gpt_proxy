@@ -12,7 +12,7 @@ if access_key is None:
 @get('/')
 @get('/chat_complete')
 def chat_complete_get():
-    with open('./readme.md', 'r') as fd:
+    with open(os.path.join(os.path.dirname(__file__),'readme.md'), 'r') as fd:
         data = fd.read()
     return markdown.markdown(data)
 
@@ -51,4 +51,4 @@ def chat_complete():
 
 if __name__ == '__main__':
     # run(host='localhost', port=9081)
-    run(host='localhost', port=9081, server='gunicorn', reload=True, workers=4, debug=True)
+    run(host='0.0.0.0', port=9081, server='gunicorn', reload=True, workers=4, debug=True)
