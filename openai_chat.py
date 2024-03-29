@@ -10,30 +10,20 @@ def get_model(api_key):
     return client
 
 
-def chat_response(prompt, client, model_name='gpt-3.5-turbo', max_tokens=1000, temperature=None,):
+def chat_response(messages, client, model_name='gpt-3.5-turbo', max_tokens=1000, temperature=None,):
     try:
         if temperature is None:
             chat_completion = client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "user",
-                        "content": prompt,
-                    }
-                ],
+                messages=messages,
                 model=model_name,
-                max_tokens=max_tokens
+                max_tokens=max_tokens,
             )
         else:
             chat_completion = client.chat.completions.create(
-                messages=[
-                    {
-                        "role": "user",
-                        "content": prompt,
-                    }
-                ],
+                messages=messages,
                 model=model_name,
                 temperature=temperature,
-                max_tokens=max_tokens
+                max_tokens=max_tokens,
             )
         return True, chat_completion.choices[0].message.content
     except Exception as e:

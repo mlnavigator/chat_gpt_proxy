@@ -2,9 +2,25 @@
 
 Сервис работает в виде API - отправьте POST запрос на end_point /chat_complete
 
-формат запроса json вида {'prompt': 'Привет, какая ты версия модели?'}
+### формат запроса json 
 
-Далее пример кода на python3 для работы с сервисом
+- кидаем только одно сообщение (промпт) вида {'prompt': 'Привет, какая ты версия модели?'}
+  в этомм случае нужно только поле 'prompt'
+
+- кидаем историю переписки вида {'messages': [list of messages]}. В этом случае нужно только поле 'messages':
+
+```  
+{'messages': [  
+    {"role": "system", "content": "You are a helpful assistant."},  
+    {"role": "user", "content": "Who won the world series in 2020?"},  
+    {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},  
+    {"role": "user", "content": "Where was it played?"}  
+  ]}  
+```
+
+
+
+### Пример кода на python3 для работы с сервисом
 
 ```
 
@@ -19,14 +35,14 @@ data = {'prompt': 'Привет, какая ты версия модели?'}
 
 то можно добавить в запрос поле 'generate_params', например:
 
-```
-data = {'prompt': 'Привет, Медвед! Расскажи что ты вчера видел?',
-        'generate_params': {
-               'model_name': 'gpt-4-0125-preview',
-               'max_tokens': 3000,
-               'temperature': 0.8
-              }
-        }
+```  
+data = {'prompt': 'Привет, Медвед! Расскажи что ты вчера видел?',  
+        'generate_params': {  
+               'model_name': 'gpt-4-0125-preview',  
+               'max_tokens': 3000,  
+               'temperature': 0.8  
+              }  
+        }  
 ```
 
 Если generate_params не задавать, или задавать частично,
@@ -47,12 +63,12 @@ data = {'prompt': 'Привет, Медвед! Расскажи что ты вч
 
 ```
 
-headers = {'access-token': '123456',
-           'openai-token': 'your OpenAi api key'}
+headers = {'access-token': '123456',  
+           'openai-token': 'your OpenAi api key'}  
            
-#### url='http://localhost:9081/chat_complete' - замените на ваш актуальный адрес сервера
+#### url='http://localhost:9081/chat_complete' - замените на ваш актуальный адрес сервера  
 
-r = requests.post(url='http://localhost:9081/chat_complete', json=data, headers=headers)
+r = requests.post(url='http://localhost:9081/chat_complete', json=data, headers=headers)  
 
 print(r.status_code)
 

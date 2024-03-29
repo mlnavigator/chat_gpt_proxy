@@ -28,7 +28,18 @@ def chat_complete():
         api_token = request.get_header('openai-token')
 
         request_data = request.json
-        prompt = request_data['prompt']
+        prompt = request_data.get('prompt', None)
+
+        if prompt:
+            messages = [
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ]
+        else:
+            messages = request_data['messages']
+
         params = request_data.get('generate_params', None)
         params = params if params else dict()
 
@@ -36,7 +47,7 @@ def chat_complete():
         # print('api_token', api_token)
         # print('prompt', prompt)
         # print('params', params)
-        status, text = chat_response(prompt, openai_client, **params)
+        status, text = chat_response(messages, openai_client, **params)
 
         if status:
             response.status = 200
