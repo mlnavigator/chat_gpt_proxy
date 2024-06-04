@@ -10,7 +10,7 @@ def get_model(api_key):
     return client
 
 
-def chat_response(messages, client, model_name='gpt-3.5-turbo', max_tokens=1000, temperature=None,):
+def chat_response(messages, client, model_name='gpt-3.5-turbo', max_tokens=1000, temperature=None,) -> tuple[bool, dict]:
     try:
         if temperature is None:
             chat_completion = client.chat.completions.create(
@@ -25,6 +25,8 @@ def chat_response(messages, client, model_name='gpt-3.5-turbo', max_tokens=1000,
                 temperature=temperature,
                 max_tokens=max_tokens,
             )
-        return True, chat_completion.choices[0].message.content
+        res = chat_completion.dict()
+        res['text'] = chat_completion.choices[0].message.content
+        return True, res
     except Exception as e:
-        return False, f'Error. {str(e)}'
+        return False, {'text': f'Error. {str(e)}'}

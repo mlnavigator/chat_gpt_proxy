@@ -47,14 +47,15 @@ def chat_complete():
         # print('api_token', api_token)
         # print('prompt', prompt)
         # print('params', params)
-        status, text = chat_response(messages, openai_client, **params)
+        status, response_dict = chat_response(messages, openai_client, **params)
 
         if status:
             response.status = 200
-            return json.dumps({'text': text, 'status': 'ok'}, ensure_ascii=False)
+            response_dict['status'] = 'ok'
+            return json.dumps(response_dict, ensure_ascii=False)
         else:
             response.status = 502
-            return json.dumps({'text': text, 'status': 'error'}, ensure_ascii=False)
+            return json.dumps({'text': response_dict['text'], 'status': 'error'}, ensure_ascii=False)
     except Exception as e:
         response.status = 500
         return json.dumps({'text': f'Error. {str(e)}', 'status': 'error'}, ensure_ascii=False)
