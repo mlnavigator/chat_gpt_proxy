@@ -41,6 +41,7 @@ def chat_complete():
             messages = request_data['messages']
 
         params = request_data.get('generate_params', None)
+        assert type(params) is dict, 'generate_params should be dict'
         params = params if params else dict()
 
         openai_client = get_model(api_token)
