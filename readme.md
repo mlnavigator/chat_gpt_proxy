@@ -9,13 +9,13 @@
 
 - кидаем историю переписки вида {'messages': [list of messages]}. В этом случае нужно только поле 'messages':
 
-```  
+``` 
 {'messages': [  
     {"role": "system", "content": "You are a helpful assistant."},  
     {"role": "user", "content": "Who won the world series in 2020?"},  
     {"role": "assistant", "content": "The Los Angeles Dodgers won the World Series in 2020."},  
     {"role": "user", "content": "Where was it played?"}  
-  ]}  
+  ]}
 ```
 
 
@@ -38,7 +38,7 @@ data = {'prompt': 'Привет, какая ты версия модели?'}
 ```  
 data = {'prompt': 'Привет, Медвед! Расскажи что ты вчера видел?',  
         'generate_params': {  
-               'model_name': 'gpt-4-0125-preview',  
+               'model_name': 'gpt-4o',  
                'max_tokens': 3000,  
                'temperature': 0.8  
               }  
