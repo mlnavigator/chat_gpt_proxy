@@ -32,4 +32,13 @@ def chat_response(messages, client, model_name='gpt-3.5-turbo', max_tokens=1000,
         res['text'] = chat_completion.choices[0].message.content
         return True, res
     except Exception as e:
-        return False, {'text': f'Error. {str(e)}'}
+
+        try:
+            try:
+                data_to_return = res
+            except:
+                data_to_return = chat_completion
+        except:
+            data_to_return = {}
+
+        return False, {'text': f'Error. {str(e)}\n\n{data_to_return}\n'}
