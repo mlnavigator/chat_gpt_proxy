@@ -3,7 +3,7 @@ import json
 import markdown
 from bottle import get, post, run, request, response
 import bottle
-bottle.BaseRequest.MEMFILE_MAX = 1024 * 1024
+bottle.BaseRequest.MEMFILE_MAX = 50 * 1024 * 1024
 
 from openai_chat import get_model, chat_response
 
