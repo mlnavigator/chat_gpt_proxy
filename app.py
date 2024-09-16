@@ -8,6 +8,8 @@ bottle.BaseRequest.MEMFILE_MAX = 50 * 1024 * 1024
 from openai_chat import get_model, chat_response
 
 access_key = os.getenv('ACCESS_KEY')
+verbose = os.getenv('VERBOSE')
+
 if access_key is None:
     access_key = '123456'
 
@@ -49,11 +51,16 @@ def chat_complete():
         openai_client = get_model(api_token)
         # print('api_token', api_token)
         # print('prompt', prompt)
-        print('params', params)
-        print(messages, end='\n\n')
+        if verbose:
+            print('params', params)
+            print(messages, end='\n\n')
+
         status, response_dict = chat_response(messages, openai_client, **params)
+
         del openai_client
-        print(response_dict, end='\n\n')
+
+        if verbose:
+            print(response_dict, end='\n\n')
 
         if status:
             response.status = 200
