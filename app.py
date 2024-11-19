@@ -77,4 +77,4 @@ def chat_complete():
 
 if __name__ == '__main__':
     # run(host='localhost', port=9081)
-    run(host='0.0.0.0', port=9081, server='gunicorn', reload=True, workers=4, debug=True)
+    run(host='0.0.0.0', port=9081, server='gunicorn', reload=True, workers=4, threads=10, debug=True)

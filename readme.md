@@ -61,7 +61,7 @@ data = {'prompt': 'Привет, Медвед! Расскажи что ты вч
 #### Обязательно установите свой openai_token в заголовке запроса
 Токен Open_ai нигде не сохраняется и используется только в рамках одного запроса
 
-```
+```python3
 
 headers = {'access-token': '123456',  
            'openai-token': 'your OpenAi api key'}  
@@ -78,6 +78,26 @@ print(r.json())
 
 >>> {'text': 'Привет! Я являюсь версией последней модели, и постоянно обновляюсь, чтобы быть самой современной и эффективной. Как я могу помочь тебе сегодня?', 'status': 'ok'}
 
+```
+
+Например
+```
+headers = {'access-token': access-token,
+           'openai-token': token} 
+data = {
+            "prompt": prompt  # или 'messages': messages
+        }
+
+data['generate_params'] = { 
+            'model_name': model_name, 
+            'max_tokens': max_tokens, 
+            'temperature': temperature,
+            # другие параметры какие нужны для передачи в опен аи, они все будут проброшены
+}
+api_url='https://chatgpt-proxy.mlnavigator.ru/chat_complete'
+r = requests.post(url=api_url, json=data, headers=headers)
+
+# r.json() содержит не только ключ text с ответом, но и все что вернуло апи чат гпт, смотрите актуальные ключи в ответа
 ```
 
 
