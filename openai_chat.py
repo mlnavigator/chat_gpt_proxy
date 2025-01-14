@@ -10,14 +10,13 @@ def get_model(api_key):
     return client
 
 
-def chat_response(messages, client, model_name='gpt-4o-mini', max_completion_tokens=1000, temperature=None, **kwargs) -> (
+def chat_response(messages, client, model_name='gpt-4o-mini', temperature=None, **kwargs) -> (
         tuple)[bool, dict]:
     try:
         if temperature is None:
             chat_completion = client.chat.completions.create(
                 messages=messages,
                 model=model_name,
-                max_completion_tokens=max_completion_tokens,
                 **kwargs
             )
         else:
@@ -25,7 +24,6 @@ def chat_response(messages, client, model_name='gpt-4o-mini', max_completion_tok
                 messages=messages,
                 model=model_name,
                 temperature=temperature,
-                max_completion_tokens=max_completion_tokens,
                 **kwargs
             )
         res = chat_completion.dict()
